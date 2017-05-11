@@ -1,5 +1,7 @@
 #!/bin/bash
 
+failCount=0
+
 for f in $PWD/test/event*.json ;
 do
   echo "Processing $f file..."
@@ -11,6 +13,14 @@ do
   #echo $expectedOutput
 
   if [ "$expectedOutput" == "$output" ]; then
-    echo "Test passed"
+    echo "Test passed for $f"
+  else
+    echo "Test failed for $f"
+    ((failCount++))
   fi
 done
+
+if [ "$failCount" -gt 0 ] ; then
+  echo "$failCount test(s) failed"
+  exit 1
+fi
