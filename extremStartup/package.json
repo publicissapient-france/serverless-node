@@ -1,0 +1,14 @@
+{
+  "name": "extremStartup",
+  "dependencies": {
+  },
+  "scripts": {
+    "testLocal": "serverless invoke  local -f answer -p test/event.json",
+    "testDev": "serverless deploy function -v -f answer && newman run test/extremStartup.postman_collection.json -e test/extremStartup.postman_environment.json --reporter-cli-no-assertions",
+    "deployDev": "serverless deploy function -v -f answer",
+    "deployProd": "serverless deploy function -s prod -f answer",
+    "logs": "serverless logs -t -f answer",
+    "buildDev": "serverless deploy",
+    "buildProd": "serverless deploy -s prod"
+  }
+}

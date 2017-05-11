@@ -1,0 +1,155 @@
+{
+	"variables": [],
+	"info": {
+		"name": "extremeStratup",
+		"_postman_id": "012046f4-432a-e8dc-4ac5-1f71609c193b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "What is 7 multiplied by 8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"56\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=20f7aed0: what is 7 multiplied by 8",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Which of the following numbers are primes: 313, 541",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"541\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=which of the following numbers are primes: 313, 541",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "What is 5 minus 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"2\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=87e22430: what is 5 minus 3",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "What is 2 to the power of 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"1024\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=b5a904c0: what is 2 to the power of 10",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "What is the 23rd number in the Fibonacci sequence",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"28657\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=d7b65090: what is the 23rd number in the Fibonacci sequence",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "What is your name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Body matches string\"] = responseBody.has(\"Pabs\");",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{protocol}}://{{domain}}/{{path}}?q=b3ef3ef0: what is your name",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
