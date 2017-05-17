@@ -10,4 +10,8 @@ RUN mkdir /root/.aws
 
 VOLUME ["/opt/project", "/root/.aws"]
 
+RUN apt-get install -y python-pip libpython-dev
+WORKDIR /tmp
+RUN pip install awscli
+
 ENTRYPOINT /bin/bash

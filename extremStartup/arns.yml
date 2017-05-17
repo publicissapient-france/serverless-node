@@ -1,0 +1,9 @@
+#arn:aws:sns:region:account-id:topicname
+base_sns:
+  Fn::Join:
+    - ":"
+    - - arn
+      - aws
+      - sns
+      - Ref: AWS::Region
+      - Ref: AWS::AccountId
