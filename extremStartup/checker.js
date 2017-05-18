@@ -50,7 +50,13 @@ module.exports.createTest = (id, question, score, callback) => {
                 Key: 'event-' + fileName + '.json',
                 Body: JSON.stringify(content)
             };
-            awsOperation.s3Push(params, callback)
+            awsOperation.s3Push(params, (fileCreated) => {
+                if (fileCreated) {
+                    callback("Test created")
+                } else {
+                    callback("S3 error occurred")
+                }
+            })
         } else {
             callback("Test is already written")
         }

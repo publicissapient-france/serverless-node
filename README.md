@@ -150,6 +150,89 @@ npm run testDev
 ```
 
 ## Aller plus loin
+Scraper la réponse auprès du serveur
+```
+npm install -S request
+# checker.js
+request(url, function (error, response, html) {
+    console.log(html)
+})
+
+npm install -S cheerio
+# checker.js
+var $ = cheerio.load(html);
+
+var correctLi = $('li').filter(function () {
+    return $(this).find('div').first().text().trim() === id;
+})
+var points = correctLi.first().find('div').first().next().next().text();
+var score = points.substring(points.indexOf(":") + 2)
+console.log(score)
+```
+
+Créer une nouvelle lambda, trigger par SNS
+```
+# checker.js
+module.exports.scrapResult = (id, callback) => { callback(score) }
+var message = JSON.parse(event.Records[0].Sns.Message)
+var id = message.id
+var question = message.question
+var answer = message.answer
+
+# serverless.yml
+environment:
+    stage: ${opt:stage, self:provider.stage}
+    region: ${opt:region, self:provider.region}
+    topic_sns: ${self:provider.environment.stage}-checkAnswer
+
+check:
+  handler: answer.checkResult
+  events:
+    - sns: ${self:provider.environment.topic_sns}
+```
+
+Tester unitairement
+```
+#check-result.json
+{
+  "Records": [
+    {
+      "Sns": {
+        "Message": "{\"question\": \"what is your name\",\"id\": \"1c108850\",\"answer\": \"Pab\"}"
+      }
+    }
+  ]
+}
+
+serverless invoke local -f check -p test/check-result.json
+```
+
+Chainer les lambdas
+```
+npm install -S aws-sdk
+# answer.js
+var message = {
+    "question": question,
+    "id": id,
+    "answer": answer
+}
+
+const params = {
+    Message: JSON.stringify(message),
+    TopicArn: topicArn
+};
+
+awsOperation.snsPublish(params, (error, data)=> {
+    if (error) {
+        callback(error);
+    }
+    context.succeed(answer)
+})
+
+# serverless ninja trick
+base_sns: ${file(arns.yml):base_sns}
+# arn.yml
+```
 
 
 

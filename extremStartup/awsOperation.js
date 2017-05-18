@@ -14,9 +14,9 @@ module.exports.s3Push = (params, callback) => {
     s3.putObject(params, function (error, response) {
         if (!error) {
             console.log(`Successfully uploaded data to ${params.Bucket}/${params.Key}`);
-            callback("Test created")
+            callback(true)
         } else {
-            callback("S3 error occurred")
+            callback(false)
         }
     });
 };

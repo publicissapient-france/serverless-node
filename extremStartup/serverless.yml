@@ -12,7 +12,14 @@ provider:
   environment:
     stage: ${opt:stage, self:provider.stage}
     region: ${opt:region, self:provider.region}
-    base_sns: ${file(arns.yml):base_sns}
+    base_sns:
+      Fn::Join:
+        - ":"
+        - - arn
+          - aws
+          - sns
+          - Ref: AWS::Region
+          - Ref: AWS::AccountId
     topic_sns: ${self:provider.environment.stage}-checkAnswer
     test_bucket: ${self:provider.environment.stage}-check-answer
     base_url: http://ecs-first-run-alb-1315137913.eu-west-1.elb.amazonaws.com/players/
