@@ -43,7 +43,7 @@ functions:
   answer:
     handler: answer.receiveQuestion
     tags:
-      foo: bar
+      owner: plopez
     events:
       - http:
           path: /
@@ -52,6 +52,8 @@ functions:
 
   check:
       handler: answer.checkResult
+      tags:
+        owner: plopez
       events:
         - sns: ${self:provider.environment.topic_sns}
 
