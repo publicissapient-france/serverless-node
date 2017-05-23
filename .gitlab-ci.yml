@@ -1,0 +1,9 @@
+before_script:
+  - apt-get update -qq && apt-get install -y -qq nodejs
+  - npm install -g serverless newman
+  
+deploy_dev:
+  - npm run buildDev
+
+test_dev:
+  - npm run testDev
