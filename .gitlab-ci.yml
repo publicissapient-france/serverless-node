@@ -1,15 +1,27 @@
 image: xebiafrance/serverless-node
 
+stages:
+  - build
+  - dev
+  - prod
+
 before_script:
   - cd extremStartup
   - npm install
 
+test_local:
+  stage: build
+  script:
+    - npm run testLocal
+
 deploy_dev:
+  stage: dev
   script:
     - npm run buildDev
     - npm run testDev
 
-test_local:
+deploy_prod:
+  stage: prod
   script:
-    - npm run testLocal
-
+    - npm run buildProd
+  when: manual

@@ -28,15 +28,14 @@ sed -i 'N;/^\n$/d;P;D' serverless.yml
 Outiller son npm. Supprimer le main. Ajouter les scrips suivants
 ```
 "scripts": {
-    "buildDev": "serverless deploy",
-    "buildProd": "serverless deploy -s prod",
-    "logs": "serverless logs -t -f answer -s prod",
+    "testLocal": "test/scripts/testAll.sh",
+    "pretestDev": "test/scripts/fillDevEnvProperties.sh",
+    "testDev": "newman run test/extremStartup.postman_collection.json -e test/extremStartup.postman_environment.json --reporter-cli-no-assertions",
     "deployDev": "serverless deploy function -v -f answer",
     "deployProd": "serverless deploy function -s prod -f answer",
-    "testLocal": "test/scripts/testAll.sh",
-    "testDev": "newman run test/extreme_startup.postman_collection.json -e test/extreme_startup.postman_environment.json --reporter-cli-no-assertions",
-    "deployDev": "serverless deploy function -v -f answer",
-    "deployProd": "serverless deploy function -s prod -f answer"
+    "logs": "serverless logs -t -f answer -s prod",
+    "buildDev": "serverless deploy",
+    "buildProd": "serverless deploy -s prod"
   }
 ```
 
