@@ -5,7 +5,9 @@ before_script:
 deploy_dev:
   script:
     - npm run buildDev
-
-test_dev:
-  script:
     - npm run testDev
+
+test_local:
+  script:
+    - npm run testLocal
+
