@@ -1,9 +1,5 @@
 image: xebiafrance/serverless-node
 
-before_script:
-  - apt-get update -qq && apt-get install -y -qq nodejs
-  - npm install -g serverless newman
-  
 deploy_dev:
   script:
     - npm run buildDev
