@@ -30,9 +30,9 @@ Outiller son npm. Supprimer le main. Ajouter les scrips suivants
 "scripts": {
     "buildDev": "serverless deploy",
     "buildProd": "serverless deploy -s prod",
-    "logs": "serverless logs -t -f answer",
+    "logs": "serverless logs -t -f answer -s prod",
     "deployDev": "serverless deploy function -v -f answer",
-    "deployProd": "serverless deploy function -s prod -f answer"
+    "deployProd": "serverless deploy function -s prod -f answer",
     "testLocal": "test/scripts/testAll.sh",
     "testDev": "newman run test/extreme_startup.postman_collection.json -e test/extreme_startup.postman_environment.json --reporter-cli-no-assertions",
     "deployDev": "serverless deploy function -v -f answer",
@@ -50,7 +50,7 @@ Vérifier
 serverless invoke -f hello -s prod
 ```
 
-Ajouter un endpoint HTTP
+Modifier les fonctions pour les rendre plus parlantes. Ajouter un endpoint HTTP
 ```
 events:
   - http:

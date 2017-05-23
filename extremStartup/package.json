@@ -5,8 +5,6 @@
     "cheerio": "*",
     "aws-sdk": "*",
     "mathjs": "*"
-
-
   },
   "scripts": {
     "testLocal": "test/scripts/testAll.sh",
@@ -16,5 +14,8 @@
     "logs": "serverless logs -t -f answer -s prod",
     "buildDev": "serverless deploy",
     "buildProd": "serverless deploy -s prod"
+  },
+  "devDependencies": {
+    "serverless-plugin-browserify": "^1.1.3"
   }
 }
