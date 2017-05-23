@@ -1,5 +1,9 @@
 image: xebiafrance/serverless-node
 
+before_script:
+  - cd extremStartup
+  - npm install
+
 deploy_dev:
   script:
     - npm run buildDev
