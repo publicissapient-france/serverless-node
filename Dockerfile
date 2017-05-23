@@ -1,6 +1,6 @@
 FROM node:6.10
 
-RUN apt-get update && apt-get install -y vim
+RUN apt-get update && apt-get install -y vim jq
 RUN npm install -g serverless newman
 
 RUN mkdir -p /opt/project

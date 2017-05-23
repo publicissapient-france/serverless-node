@@ -8,7 +8,8 @@
   },
   "scripts": {
     "testLocal": "test/scripts/testAll.sh",
-    "testDev": "test/scripts/fillDevEnvProperties.sh && newman run test/extremStartup.postman_collection.json -e test/extremStartup.postman_environment.json --reporter-cli-no-assertions",
+    "pretestDev": "test/scripts/fillDevEnvProperties.sh",
+    "testDev": "newman run test/extremStartup.postman_collection.json -e test/extremStartup.postman_environment.json --reporter-cli-no-assertions",
     "deployDev": "serverless deploy function -v -f answer",
     "deployProd": "serverless deploy function -s prod -f answer",
     "logs": "serverless logs -t -f answer -s prod",
