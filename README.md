@@ -49,7 +49,13 @@ Vérifier
 serverless invoke -f hello -s prod
 ```
 
-Modifier les fonctions pour les rendre plus parlantes. Ajouter un endpoint HTTP
+Modifier les fonctions pour les rendre plus parlantes.
+```
+Renommer le handler hello en answer
+Renommer la fonction en receiveQuestion
+```
+
+Ajouter un endpoint HTTP
 ```
 events:
   - http:
@@ -75,6 +81,8 @@ npm run deployProd
 
 S'inscrire sur le serveur Extreme Startup
 
+## Passer en mode craft
+
 Créer un premier test
 ```
 # event-name.json
@@ -89,7 +97,7 @@ Créer un premier test
 
 Créer un script pour passer tous les tests en local
 ```
-# testAll.sh
+# test/scripts/testAll.sh #
 #!/bin/bash
 
 failCount=0
@@ -140,7 +148,28 @@ Utiliser Postman pour créer un test d'intégration
 # Test
 tests["Body matches string"] = responseBody.has("Pabs");
 tests["Status code is 200"] = responseCode.code === 200;
-# Environnement
+
+```
+Créer un script pour générer le fichier d'environnement
+```
+# test/scripts/fillDevEnvProperties
+
+#!/bin/bash
+
+STR=$(serverless info -s dev | awk '/endpoints/{getline; print}' | awk -F'- ' '{print $NF}')
+SCHEME=${STR%://*}
+URL=${STR#*//}
+DOMAIN=${URL%/*}
+URL_PATH=${STR##*/}
+
+cat test/extremStartup.postman_environment.json.template | \
+jq --arg scheme $SCHEME -r \
+'(.values[] | select(.key=="protocol") | .value )=$scheme' | \
+jq --arg path $URL_PATH -r \
+'(.values[] | select(.key=="path") | .value )=$path' | \
+jq --arg domain $DOMAIN -r \
+'(.values[] | select(.key=="domain") | .value )=$domain' > \
+test/extremStartup.postman_environment.json
 ```
 
 Réaliser un test d'intégration
@@ -229,9 +258,70 @@ awsOperation.snsPublish(params, (error, data)=> {
 })
 
 # serverless ninja trick
-base_sns: ${file(arns.yml):base_sns}
-# arn.yml
+base_sns:
+      Fn::Join:
+        - ":"
+        - - arn
+          - aws
+          - sns
+          - Ref: AWS::Region
+          - Ref: AWS::AccountId
 ```
+
+Créer des tests d'intégration dans S3
+```
+# checker.js
+var content = {
+    "query": {
+        "q": id + ": " + question,
+        "score": score
+    }
+}
+
+var fileName = question.replace(/[0-9]/g, "X")
+fileName = fileName.replace(/X+/g, "X")
+fileName = fileName.replace(/ +/g, "_")
+
+var params = {
+    Bucket: process.env.test_bucket,
+    Key: 'event-' + fileName + '.json'
+};
+
+awsOperation.s3FileExists(params, (exists) => {
+    if (!exists) {
+        params = {
+            Bucket: process.env.test_bucket,
+            Key: 'event-' + fileName + '.json',
+            Body: JSON.stringify(content)
+        };
+        awsOperation.s3Push(params, (fileCreated) => {
+            if (fileCreated) {
+                callback("Test created")
+            } else {
+                callback("S3 error occurred")
+            }
+        })
+    } else {
+        callback("Test is already written")
+    }
+})
+```
+
+Utiliser la cli d'AWS pour synchroniser avec le bucket
+```
+# test/scripts/continuousTest.sh #
+#!/bin/bash
+
+while true;
+do
+    aws s3 sync s3://prod-check-answer ./test/
+    npm run testLocal --silent
+    sleep 10
+done
+
+```
+
+Fixer les tests !
 
 
 
