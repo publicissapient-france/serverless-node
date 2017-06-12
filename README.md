@@ -79,7 +79,10 @@ Redéployer uniquement la fonction
 npm run deployProd
 ```
 
-S'inscrire sur le serveur Extreme Startup
+S'inscrire sur le serveur Extreme Startup Warmup
+```
+http://lb-xke-215807522.eu-west-1.elb.amazonaws.com:81/
+```
 
 ## Passer en mode craft
 
@@ -319,6 +322,11 @@ do
     sleep 10
 done
 
+```
+
+Mode prod !
+```
+http://lb-xke-215807522.eu-west-1.elb.amazonaws.com
 ```
 
 Fixer les tests !
